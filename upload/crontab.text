@@ -1,0 +1,18 @@
+###############后台脚本###################
+#预开服时间更新
+1 0 * * * /usr/bin/php5.5 /var/www/html/jxqy_central/public/index.php Shell Bgstatis openserv >/dev/null 2>&1 &
+
+##开服日数据 (充值的跑完再跑这个)
+0 3 * * * /usr/bin/php5.5 /var/www/html/jxqy_central/public/index.php Shell Bgstatis osdata -rd>/dev/null 2>&1 &
+
+##loading流失率 独立ip  每天
+10 */1 * * * /usr/bin/php5.5 /var/www/html/jxqy_central/public/index.php Shell Bgstatis loadip -rh >/dev/null 2>&1 &
+
+##等级分布 付费用户、活跃用户
+50 5 * * * /usr/bin/php5.5 /var/www/html/jxqy_central/public/index.php Shell Bgstatis levelcharge -rd >/dev/null 2>&1 &
+
+##玩家信息反馈
+*/5 * * * * /usr/bin/php /var/www/html/lpjt_central/public/index.php Shell Loadentgame feedback 1000 >/dev/null &
+
+#######清除日志#######
+0 0 * * * /bin/bash /var/www/html/clear_log.sh >/dev/null 2>&1 &
